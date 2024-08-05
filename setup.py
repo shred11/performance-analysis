@@ -10,7 +10,7 @@ def get_requirements(file_path: str) -> List[str]:
     requirements = []
     with open(file_path) as file_obj:
         requirements = file_obj.readlines()
-        requirements = [req.strip() for req in requirements]  # Remove newline characters and extra spaces
+        requirements = [req.strip() for req in requirements] 
 
         if HYPHEN_E_DOT in requirements:
             requirements.remove(HYPHEN_E_DOT)
@@ -18,7 +18,7 @@ def get_requirements(file_path: str) -> List[str]:
     return requirements
 
 setup(
-    name='performance_analysis',  # Avoid spaces in the name
+    name='performance_analysis', 
     version='0.0.1',
     author='shreyash',
     author_email='shreyashkasar0@gmail.com',
