@@ -76,33 +76,18 @@ class DataTransformation:
 
             logging.info("Train and test data loaded successfully")
 
-            # Print the first few rows of the DataFrame for debugging
-            logging.info(f"Train DataFrame:\n{train_df.head()}")
-            logging.info(f"Test DataFrame:\n{test_df.head()}")
-
-            # Print column names
-            logging.info(f"Train DataFrame columns: {train_df.columns.tolist()}")
-            logging.info(f"Test DataFrame columns: {test_df.columns.tolist()}")
-
-            # Check if the target column exists
             target_column = "maths_score"
-            if target_column not in train_df.columns:
-                raise ValueError(f"'{target_column}' is not a column in the training data")
-            if target_column not in test_df.columns:
-                raise ValueError(f"'{target_column}' is not a column in the testing data")
 
-            # Create preprocessor
             logging.info("Creating preprocessor")
             preprocessor = self.create_preprocessor(train_df)
 
-            # Separate input features and target features
             input_features_train = train_df.drop(columns=[target_column], axis=1)
             target_train = train_df[target_column]
 
             input_features_test = test_df.drop(columns=[target_column], axis=1)
             target_test = test_df[target_column]
 
-            # Apply preprocessor on training and testing data
+            # Applying preprocessor on training and testing data
             logging.info("Applying preprocessor on training and testing data")
             input_features_train_transformed = preprocessor.fit_transform(input_features_train)
             input_features_test_transformed = preprocessor.transform(input_features_test)
@@ -110,12 +95,12 @@ class DataTransformation:
             train_array = np.c_[input_features_train_transformed, np.array(target_train)]
             test_array = np.c_[input_features_test_transformed, np.array(target_test)]
 
-            # Save preprocessor
-            logging.info("Saving preprocessor")
             save_object(
                 file_path=self.config.preprocessor_file_path,
                 obj=preprocessor
             )
+
+            logging.info("Saved preprocessor")
 
             return (
                 train_array,
